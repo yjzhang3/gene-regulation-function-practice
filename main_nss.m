@@ -1,31 +1,26 @@
-% find k and production rate that maximizes log gain for non-steady state
+function [LG_arr_fmin,LG_arr_lhs,LG_arr_ps] = main_nss(TF_arr,t_arr)
+% find k and production rate that maximizes log gain for steady state
 
-%% fmincon
-time = 10;
-TF = 10; 
-[fit, score] = fmincon(@(p) fit_model_nss(p,time,TF),[0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01], [],[],[],[],[1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5],[2,2,2,2,2,2,2,2,2]);
+LG_arr_fmin = zeros(length(TF_arr),length(t_arr));
+LG_arr_lhs = zeros(length(TF_arr),length(t_arr));
+LG_arr_ps = zeros(length(TF_arr),length(t_arr));
 
-%%
-maxLG_fmin = lg_TF_nss(fit,10,10);
-
-%% particle swarm
-rng default
-time = 10;
-TF = 10;
-fun = @(p) fit_model_nss(p,time,TF);
-nvars = 9;
-x = particleswarm(fun,nvars);
-
-%% latin hypercube sampling
-time = 10;
-TF = 10;
-maxLG_lhs = 0;
-for tt = 1:500
-    p = lhsdesign(1,9);
-    lg = lg_TF_nss(p,time,TF);
-    if lg > maxLG_lhs
-        maxLG_lhs = lg;
-    end
-end
-maxLG_lhs
+for ii = 1:length(TF_arr)
+    for jj = 1:length(t_arr)
+        % latin hypercube sampling 
+        nss_maxLG_lhs = lhsmax_nss(100,TF_arr(ii),t_arr(jj));
+        LG_arr_lhs(ii,jj) = nss_maxLG_lhs;
     
+        % fmincon
+        [fit, score] = fmincon(@(p) fit_model_nss(p,t_arr(jj),TF_arr(ii)),[0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01], [],[],[],[],[1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5],[2,2,2,2,2,2,2,2,2]);
+        nss_maxLG_fmin = lg_TF_nss(fit,t_arr(jj),TF_arr(ii));
+        LG_arr_fmin(ii,jj) = nss_maxLG_fmin;
+
+        % particle swarm
+        nss_maxLG_ps = psmin_nss(TF_arr(ii),t_arr(jj));
+        LG_arr_ps(ii,jj) = nss_maxLG_ps;
+    end
+end 
+
+end 
+

@@ -1,4 +1,7 @@
 function abs_maxLG = lg_TF_nss(p,time,TF)
+% calculate maximum log gain for a transient system while varying TF
+% concentration
+
 % 
 % time = 100;
 % TF = 15;
@@ -18,12 +21,14 @@ prod_rate = p(9);
 y0 = [0;0;0;1]; % start with unoccupied, inactive
     
 % try all possible TF concentration and simulate for designated seconds
-TF_span = [0.1:0.1:TF]; 
-tspan = [0.1:0.1:time];
+TF_span = [0:0.01:TF]; 
+tspan = [0:0.01:time];
 TR_all = zeros(length(tspan),1); % store time dependent TR for each unique TF
 % size(TR_all)
 
 [t, y_pred] = ode23s(@(t,y)Pa_nss4(t,y,pars,3),tspan,y0);
+TR = transcription_rate_ss(y_pred(:,1),prod_rate);
+% options = odeset('RelTol',1e-7,'AbsTol',1e-8);
 
 % simulate model
 for jj = 1:length(TF_span)
@@ -32,25 +37,23 @@ for jj = 1:length(TF_span)
 %     size(TR_all)
 end
 TR_all(:,1) = [];
-% size(TR_all)
-
+% 
 % calculate log gain for each time point at each TF
-LG_all_t = zeros(1,length(TF_span));
+LG_all = zeros(1,length(TF_span));
 for gg = 1:length(tspan)
     log_gain = gradient(log(TR_all(gg,:))) ./ gradient(log(TF_span));
-    LG_all_t = cat(1,LG_all_t,log_gain);
+    LG_all = cat(1,LG_all,log_gain);
 end
-LG_all_t(1,:) = [];
 
 % find the max log gain among all TF, all time
-abs_maxLG = max(LG_all_t(:));
-abs_maxLG
+abs_maxLG = max(LG_all(:));
+
 % % plot what is the max LG for each time point
 % max_LG_t = [];
 % for tt = 1:length(tspan)
-%     max_LG_t = [max_LG_t,max(LG_all_t(tt,:))];
+%     max_LG_t = [max_LG_t,max(LG_all(tt,:))];
 % end
-% % 
+% 
 % figure();
 % plot(tspan,max_LG_t,"LineWidth",4)
 % xlabel("time")
@@ -58,5 +61,17 @@ abs_maxLG
 % title("maximum log gain of TR/TF, time dependent")
 % set(gca,"FontSize",13)
 
+% plot what is the max LG for each TF 
+max_LG_TF = [];
+for ff = 1:length(TF_span)
+    max_LG_TF = [max_LG_TF,max(LG_all(:,ff))];
+end
+
+% figure();
+% plot(TF_span,max_LG_TF,"LineWidth",4)
+% xlabel("TF")
+% ylabel("maximum log gain in TR/TF")
+% title("maximum log gain of TR/TF, TF dependent")
+% set(gca,"FontSize",13)
     
     
