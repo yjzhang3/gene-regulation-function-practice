@@ -61,11 +61,11 @@ abs_maxLG = max(LG_all(:));
 % title("maximum log gain of TR/TF, time dependent")
 % set(gca,"FontSize",13)
 
-% plot what is the max LG for each TF 
-max_LG_TF = [];
-for ff = 1:length(TF_span)
-    max_LG_TF = [max_LG_TF,max(LG_all(:,ff))];
-end
+% % plot what is the max LG for each TF 
+% max_LG_TF = [];
+% for ff = 1:length(TF_span)
+%     max_LG_TF = [max_LG_TF,max(LG_all(:,ff))];
+% end
 
 % figure();
 % plot(TF_span,max_LG_TF,"LineWidth",4)
