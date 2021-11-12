@@ -1,0 +1,21 @@
+% find k and production rate that maximizes log gain for steady state
+function [LG_arr_fmin,LG_arr_lhs,LG_arr_ps] = main_ss(TF_arr)
+
+LG_arr_fmin = zeros(length(TF_arr),1);
+LG_arr_lhs = zeros(length(TF_arr),1);
+LG_arr_fmin = zeros(length(TF_arr),1);
+
+for ii = 1:length(TF_arr):
+    % latin hypercube sampling 
+    ss_maxLG_lhs = lhsmax(100,TF_arr(ii));
+    
+    % fmincon
+    [fit, score] = fmincon(@(p) fit_model_ss(p,TF),[0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01 0.01], [],[],[],[],[1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5],[2,2,2,2,2,2,2,2,2]);
+    ss_maxLG_fmin = lg_TF_nss(fit,10,10);
+    
+    % particle swarm
+    psmin(TF_arr(ii));
+
+end 
+
+

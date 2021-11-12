@@ -4,7 +4,7 @@ function maxLG = lg_TF_ss(p,TF)
 
 %% graph showing the relationship between TF and TR
 
-TF_span = [0:0.1:TF]; % try all possible TF concentration
+TF_span = [0:0.01:TF]; % try all possible TF concentration
 tr_all = zeros(1,length(TF_span));
 k = p(1:8);
  
