@@ -1,4 +1,4 @@
-function maxLG = lg_TF_ss(p,TF)
+function [maxLG,maxTF] = lg_TF_ss(p,TF)
 % find the maximum log gain
 
 

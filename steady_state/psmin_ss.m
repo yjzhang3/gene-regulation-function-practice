@@ -1,4 +1,4 @@
-function lg = psmin_ss(TF)
+function [lg,x] = psmin_ss(TF)
 rng default
 lb = [1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5 1E-5];
 ub = [,2,2,2,2,2,2,2,2];
