@@ -1,10 +1,10 @@
-function abs_maxLG = lg_TF_nss(p,time,TF)
+function [abs_maxLG,LG_all] = lg_TF_nss(p,time,TF)
 % calculate maximum log gain for a transient system while varying TF
 % concentration
 
 % 
-% time = 100;
-% TF = 15;
+% time = 5;
+% TF = 0.8;
 % p = [0.9,0.78,0.54,0.3,0.03,0.02,0.01,0.07,0.1];
 % set up model parameters (these will be fed into ODE solver)
 pars.Kab= p(1);
@@ -23,26 +23,26 @@ y0 = [0;0;0;1]; % start with unoccupied, inactive
 % try all possible TF concentration and simulate for designated seconds
 TF_span = [0:0.01:TF]; 
 tspan = [0:0.01:time];
-TR_all = zeros(length(tspan),1); % store time dependent TR for each unique TF
+TR_all = zeros(length(tspan),length(TF_span)); % store time dependent TR for each unique TF
 % size(TR_all)
 
-[t, y_pred] = ode23s(@(t,y)Pa_nss4(t,y,pars,3),tspan,y0);
-TR = transcription_rate_ss(y_pred(:,1),prod_rate);
+% [t, y_pred] = ode23s(@(t,y)Pa_nss4(t,y,pars,3),tspan,y0);
+% TR = transcription_rate_ss(y_pred(:,1),prod_rate);
 % options = odeset('RelTol',1e-7,'AbsTol',1e-8);
 
 % simulate model
-for jj = 1:length(TF_span)
+parfor jj = 1:length(TF_span)
     [t, y_pred] = ode23s(@(t,y)Pa_nss4(t,y,pars,TF_span(jj)),tspan,y0);
-    TR_all = cat(2,TR_all,transcription_rate_ss(y_pred(:,1),prod_rate));
+    TR_all(:,jj) = transcription_rate_ss(y_pred(:,1),prod_rate);
 %     size(TR_all)
 end
-TR_all(:,1) = [];
+
 % 
 % calculate log gain for each time point at each TF
-LG_all = zeros(1,length(TF_span));
-for gg = 1:length(tspan)
+LG_all = zeros(length(tspan),length(TF_span));
+parfor gg = 1:length(tspan)
     log_gain = gradient(log(TR_all(gg,:))) ./ gradient(log(TF_span));
-    LG_all = cat(1,LG_all,log_gain);
+    LG_all(gg,:) = log_gain;
 end
 
 % find the max log gain among all TF, all time
