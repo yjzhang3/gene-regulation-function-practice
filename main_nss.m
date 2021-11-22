@@ -1,4 +1,4 @@
-function [LG_arr_ps,p_arr] = main_nss(TF_arr,t_arr)
+function [LG_arr_ps,p_arr_ps,maxTF_arr_ps] = main_nss(TF_arr,t_arr)
 % find k and production rate that maximizes log gain for steady state
 
 % LG_arr_fmin = zeros(length(TF_arr),length(t_arr));
@@ -6,6 +6,7 @@ function [LG_arr_ps,p_arr] = main_nss(TF_arr,t_arr)
 LG_arr_ps = zeros(length(TF_arr),length(t_arr));
 p_arr_ps = zeros(length(TF_arr),length(t_arr),9); 
 % each row is the best set of k for a particular TF range and t range
+maxTF_arr_ps = zeros(length(TF_arr),length(t_arr));
 
 for ii = 1:length(TF_arr)
     for jj = 1:length(t_arr)
@@ -19,9 +20,11 @@ for ii = 1:length(TF_arr)
 %         LG_arr_fmin(ii,jj) = nss_maxLG_fmin;
 
         % particle swarm
-        [nss_maxLG_ps,p_arr] = psmin_nss(TF_arr(ii),t_arr(jj));
+        [nss_maxLG_ps,p] = psmin_nss(TF_arr(ii),t_arr(jj));
         LG_arr_ps(ii,jj) = nss_maxLG_ps;
         p_arr_ps(ii,jj,:) = p;
+        [maxLG,maxTF] = lg_TF_nss(p,t_arr(jj),TF_arr(ii));
+        maxTF_arr_ps(ii,jj) = maxTF;
     end
 end 
 
