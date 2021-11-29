@@ -1,8 +1,7 @@
-function maxLG = lg_t_fixTF(TF,time,p)
-% calculate the maximum log gain when TF is fixed, at which time point is
-% log gain the largest (for non steady state)
+function [maxLG,log_gain] = lg_t_fixTF(TF,time,p)
+% explore how LG changes over time for a fixed TF
 
-h = 0.01; % numerical diffentiation parmaeter
+h = 0.005; % numerical diffentiation parmaeter
 
 % % sample parameters
 % p = [0.9,0.78,0.54,0.3,0.03,0.02,0.01,0.07,0.1];
@@ -18,8 +17,10 @@ pars.Kdb0 = p(4);
 pars.Kcd = p(5);
 pars.Kdc = p(6);
 pars.Kca0 = p(7);
-pars.Kac = p(8);
-prod_rate = p(9);
+% pars.Kac = p(8);
+% impose equilibrium condition
+pars.Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2));
+prod_rate = p(8);
 
 % time to be explored
 tspan = [0:0.01:time];
@@ -63,11 +64,15 @@ for j = 1:length(tspan)
 end
 
 maxLG = max(log_gain);
-
-plot(tspan,log_gain);
-spec = sprintf('transient state log gain vs. time with TF = %i simulated over %i seconds',TF,time)
+spec = sprintf('transient state log gain vs. time with TF = %0.5f simulated over %0.5f seconds',TF,time);
+plot(tspan,log_gain,"LineWidth",4)
 title(spec)
 xlabel('time')
 ylabel('log gain')
+spec1 = sprintf('non-steady state max LG @ TF = %0.5f is %0.5f',TF,maxLG);
+yline(maxLG,'--',spec1,'LineWidth',3,'Color',[0.1 0.9 0.2])
+set(gca,"FontSize",13)
+hold on
+
 
 end

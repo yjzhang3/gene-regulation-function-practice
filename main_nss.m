@@ -1,12 +1,17 @@
-function [LG_arr_ps,p_arr_ps,maxTF_arr_ps] = main_nss(TF_arr,t_arr)
+function [LG_arr_ps,p_arr_ps,maxTF_arr] = main_nss(TF_arr,t_arr)
 % find k and production rate that maximizes log gain for steady state
+% TF_arr is array of maximum TF (can test multiple TF ranges), same with
+% t_arr
 
 % LG_arr_fmin = zeros(length(TF_arr),length(t_arr));
 % LG_arr_lhs = zeros(length(TF_arr),length(t_arr));
 LG_arr_ps = zeros(length(TF_arr),length(t_arr));
-p_arr_ps = zeros(length(TF_arr),length(t_arr),9); 
+p_arr_ps = zeros(length(TF_arr),length(t_arr),8); 
 % each row is the best set of k for a particular TF range and t range
-maxTF_arr_ps = zeros(length(TF_arr),length(t_arr));
+
+% what is the TF that maximizes this particular TF range
+maxTF_arr = zeros(length(TF_arr),1); 
+
 
 for ii = 1:length(TF_arr)
     for jj = 1:length(t_arr)
@@ -23,8 +28,8 @@ for ii = 1:length(TF_arr)
         [nss_maxLG_ps,p] = psmin_nss(TF_arr(ii),t_arr(jj));
         LG_arr_ps(ii,jj) = nss_maxLG_ps;
         p_arr_ps(ii,jj,:) = p;
-        [maxLG,maxTF] = lg_TF_nss(p,t_arr(jj),TF_arr(ii));
-        maxTF_arr_ps(ii,jj) = maxTF;
+        [abs_maxLG,maxTF] = lg_TF_nss(p,t_arr(jj),TF_arr(ii));
+        maxTF_arr(ii) = maxTF;
     end
 end 
 

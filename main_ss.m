@@ -1,11 +1,13 @@
 function [LG_arr_ps,p_arr_ps,maxTF_arr] = main_ss(TF_arr)
 % find k and production rate that maximizes log gain for steady state
-% TF_arr is confusing, basically an array of maximum value (range)
+% TF_arr is confusing, basically an array of maximum value (range), which
+% means we can test different TF ranges
 
-LG_arr_fmin = zeros(length(TF_arr),1);
+LG_arr_ps = zeros(length(TF_arr),1);
 % LG_arr_lhs = zeros(length(TF_arr),1);
 % LG_arr_ps = zeros(length(TF_arr),1);
-p_arr_ps = zeros(length(TF_arr),9); % each row is the best set of k for a particular TF range
+% p_arr_ps = zeros(length(TF_arr),9); % each row is the best set of k for a particular TF range
+p_arr_ps = zeros(length(TF_arr),8);
 maxTF_arr = zeros(length(TF_arr),1); % what is the TF that maximizes this particular TF range
 
 for ii = 1:length(TF_arr)
