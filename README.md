@@ -1,4 +1,4 @@
-# gene-regulation-function-practice
+# Simple gene regulation function
 
 ## central question: how does TF concentration affect gene expression, aka, transcription rate?
 
