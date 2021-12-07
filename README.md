@@ -1,4 +1,4 @@
-# gene-expression-variability
+# gene-regulation-function-practice
 
 ## central question: how does TF concentration affect gene expression, aka, transcription rate?
 
