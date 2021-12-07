@@ -1,7 +1,7 @@
 function [maxLG,log_gain] = lg_t_fixTF(TF,time,p)
 % explore how LG changes over time for a fixed TF
 
-h = 0.005; % numerical diffentiation parmaeter
+h = 0.005; % numerical diffentiation parameter
 
 % % sample parameters
 % p = [0.9,0.78,0.54,0.3,0.03,0.02,0.01,0.07,0.1];

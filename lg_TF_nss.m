@@ -2,9 +2,6 @@ function [abs_maxLG,maxTF] = lg_TF_nss(p,time,TF)
 % calculate maximum log gain for a transient system while varying TF
 % concentration
 
-% note the TF passed in here is the max of a range of TF, it is the
-% actual TF!!! 
-
 % time = 5;
 % TF = 0.8;
 % p = [0.9,0.78,0.54,0.3,0.03,0.02,0.01,0.07,0.1];
@@ -16,10 +13,9 @@ pars.Kdb0 = p(4);
 pars.Kcd = p(5);
 pars.Kdc = p(6);
 pars.Kca0 = p(7);
-% pars.Kac = p(8);
-% impose equilibrium condition
-pars.Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2));
-prod_rate = p(8);
+pars.Kac = p(8); % neq
+% pars.Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)); % eq
+
 
 % initial condition
 y0 = [0;0;0;1]; % start with unoccupied, inactive
@@ -37,7 +33,7 @@ TR_all = zeros(length(tspan),length(TF_span)); % store time dependent TR for eac
 % simulate model
 for jj = 1:length(TF_span)
     [t, y_pred] = ode23s(@(t,y)Pa_nss4(t,y,pars,TF_span(jj)),tspan,y0);
-    TR_all(:,jj) = transcription_rate_ss(y_pred(:,1),prod_rate);
+    TR_all(:,jj) = transcription_rate_ss(y_pred(:,1),1); % assume prod_rate = 1
 %     size(TR_all)
 end
 % each entry in y_pred is the TF at that particular TF and time, not for a
@@ -57,7 +53,7 @@ abs_maxLG = max(LG_all(:))
 [i,j] = find(LG_all==abs_maxLG);
 maxTF = TF_span(j)
 
-% plot what is the max LG for each time point, and find the TF at each time
+% what is the max LG for each time point, and find the TF at each time
 % point that maximizes the log gain
 max_LG_t = [];
 for tt = 1:length(tspan)
@@ -65,25 +61,25 @@ for tt = 1:length(tspan)
 end
 
 % make sure to comment this out when running main to decrease run time
-figure();
-subplot(2,1,1)
-plot(tspan,max_LG_t,"LineWidth",4)
-xlabel("time")
-ylabel("maximum log gain in TR/TF")
-title("maximum log gain of TR/TF, time dependent")
-set(gca,"FontSize",13)
-
-% % plot what is the max LG for each TF 
-max_LG_TF = [];
-for ff = 1:length(TF_span)
-    max_LG_TF = [max_LG_TF,max(LG_all(:,ff))];
-end
-
-subplot(2,1,2)
-plot(TF_span,max_LG_TF,"LineWidth",4)
-xlabel("TF")
-ylabel("maximum log gain in TR/TF")
-title("maximum log gain of TR/TF, TF dependent")
-set(gca,"FontSize",13)
+% figure();
+% subplot(2,1,1)
+% plot(tspan,max_LG_t,"LineWidth",4)
+% xlabel("time")
+% ylabel("maximum log gain in TR/TF")
+% title("maximum log gain of TR/TF, time dependent")
+% set(gca,"FontSize",13)
+% 
+% % % plot what is the max LG for each TF 
+% max_LG_TF = [];
+% for ff = 1:length(TF_span)
+%     max_LG_TF = [max_LG_TF,max(LG_all(:,ff))];
+% end
+% 
+% subplot(2,1,2)
+% plot(TF_span,max_LG_TF,"LineWidth",4)
+% xlabel("TF")
+% ylabel("maximum log gain in TR/TF")
+% title("maximum log gain of TR/TF, TF dependent")
+% set(gca,"FontSize",13)
 
 end

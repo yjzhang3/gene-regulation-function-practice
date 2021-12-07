@@ -6,7 +6,9 @@ function [LG_arr_ps,p_arr_ps,maxTF_arr] = main_nss(TF_arr,t_arr)
 % LG_arr_fmin = zeros(length(TF_arr),length(t_arr));
 % LG_arr_lhs = zeros(length(TF_arr),length(t_arr));
 LG_arr_ps = zeros(length(TF_arr),length(t_arr));
-p_arr_ps = zeros(length(TF_arr),length(t_arr),8); 
+
+p_arr_ps = zeros(length(TF_arr),length(t_arr),8); % neq
+% p_arr_ps = zeros(length(TF_arr),length(t_arr),7); % eq
 % each row is the best set of k for a particular TF range and t range
 
 % what is the TF that maximizes this particular TF range
@@ -25,11 +27,10 @@ for ii = 1:length(TF_arr)
 %         LG_arr_fmin(ii,jj) = nss_maxLG_fmin;
 
         % particle swarm
-        [nss_maxLG_ps,p] = psmin_nss(TF_arr(ii),t_arr(jj));
+        [nss_maxLG_ps,nss_maxTF_ps,p] = psmin_nss(TF_arr(ii),t_arr(jj));
         LG_arr_ps(ii,jj) = nss_maxLG_ps;
         p_arr_ps(ii,jj,:) = p;
-        [abs_maxLG,maxTF] = lg_TF_nss(p,t_arr(jj),TF_arr(ii));
-        maxTF_arr(ii) = maxTF;
+        maxTF_arr(ii) = nss_maxTF_ps;
     end
 end 
 
