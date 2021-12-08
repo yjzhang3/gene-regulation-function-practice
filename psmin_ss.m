@@ -11,7 +11,7 @@ nvars = 8; % neq
 %% more iterations, not just once
 lg_max = 0;
 TF_max = 0;
-for iteration = 1:300
+for iteration = 1:5
     x = particleswarm(fun,nvars,lb,ub)
     [lg,TF] = lg_TF_ss(x,TF);
     if lg>lg_max

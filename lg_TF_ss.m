@@ -1,7 +1,7 @@
 function [maxLG,maxTF,log_gain] = lg_TF_ss(p,TF)
 % find the maximum log gain
 
-TF_span = [0:0.01:TF]; % try all possible TF concentration
+TF_span = [0:1:TF]; % try all possible TF concentration
 tr_all = zeros(1,length(TF_span));
 
 %% exact solution
