@@ -7,8 +7,8 @@ Kdb0 = p(4);
 Kcd = p(5);
 Kdc = p(6);
 Kca0 = p(7);
-% Kac = p(8);
-Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2));
+Kac = p(8); % neq
+% Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)); % eq
 
 % probability of state a at steady state for 4 state system
 Kca = Kca0*TF;
