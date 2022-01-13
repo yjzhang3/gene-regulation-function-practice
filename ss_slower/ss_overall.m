@@ -1,6 +1,6 @@
 %% find best log gain and parameters for steady state
 % remember to comment out figure section
-TF_test = [1000,10000];
+TF_test = [0.45,0.67];
 [LG_arr_ps,p_arr_ps,maxTF_arr] = main_ss(TF_test);
 
 %% graph TR vs. TF, 

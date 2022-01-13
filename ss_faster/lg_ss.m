@@ -11,3 +11,4 @@ f = @(x) transcription_rate_ss(Pa_ss4(k,x),prod_rate); % TR
 f1 = eval(['@(x)' char(diff(f(x)))]); % dTR/dTF
 
 lg = @(x) x/f(x)*f1(x); % LG = TF/TR*dTR/dTF
+end

@@ -27,7 +27,7 @@ for ii = 1:length(TF_arr)
 %         LG_arr_fmin(ii,jj) = nss_maxLG_fmin;
 
         % particle swarm
-        [nss_maxLG_ps,nss_maxTF_ps,p] = psmin_nss(TF_arr(ii),t_arr(jj));
+        [nss_maxLG_ps,nss_maxTF_ps,p] = psmin_nss_v2(TF_arr(ii),t_arr(jj));
         LG_arr_ps(ii,jj) = nss_maxLG_ps;
         p_arr_ps(ii,jj,:) = p;
         maxTF_arr(ii) = nss_maxTF_ps;

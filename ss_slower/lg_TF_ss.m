@@ -55,29 +55,29 @@ maxTF = TF_span(I);
 %% graph showing the relationship between TF and TR
 % comment this section out when runnign mean
 
-figure();
-plot(TF_span,tr_all,'s','MarkerFaceColor',[0 0.447 0.741]);
-xlabel("TF")
-ylabel("TR")
-title("Transcription rate vs. [transcription factor]")
-set(gca,"FontSize",13)
-
-figure();
-loglog(TF_span,tr_all,'s','MarkerFaceColor',[0 0.447 0.741]);
-grid on;
-xlabel("log(TF)")
-ylabel("log(TR)")
-title("log(Transcription) rate vs. log([transcription factor])")
-set(gca,"FontSize",13)
-
-
-figure();
-spec = sprintf('log gain vs. [transcription factor] for TF range [0,%0.5f]',TF);
-plot(TF_span,log_gain,'s','MarkerFaceColor',[0 0.447 0.741])
-xlabel("TF")
-ylabel("log gain")
-title(spec)
-set(gca,"FontSize",13)
+% figure();
+% plot(TF_span,tr_all,'s','MarkerFaceColor',[0 0.447 0.741]);
+% xlabel("TF")
+% ylabel("TR")
+% title("Transcription rate vs. [transcription factor]")
+% set(gca,"FontSize",13)
+% 
+% figure();
+% loglog(TF_span,tr_all,'s','MarkerFaceColor',[0 0.447 0.741]);
+% grid on;
+% xlabel("log(TF)")
+% ylabel("log(TR)")
+% title("log(Transcription) rate vs. log([transcription factor])")
+% set(gca,"FontSize",13)
+% 
+% 
+% figure();
+% spec = sprintf('log gain vs. [transcription factor] for TF range [0,%0.5f]',TF);
+% plot(TF_span,log_gain,'s','MarkerFaceColor',[0 0.447 0.741])
+% xlabel("TF")
+% ylabel("log gain")
+% title(spec)
+% set(gca,"FontSize",13)
 end
 
 
