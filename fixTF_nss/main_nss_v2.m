@@ -1,5 +1,5 @@
 function [LG_arr,p_arr,maxT_arr] = main_nss_v2(TF_arr,t_arr)
-% find k and production rate that maximizes log gain for steady state
+% find k that maximizes log gain for non steady state
 % TF_arr is array of specific TF, but t_arr is an array of upper bound of
 % simulation time
 
