@@ -6,20 +6,23 @@ tspan = [0:0.1:t];
 
 pars.Kab= p(1);
 pars.Kba = p(2);
+% pars.Kac = p(2);
 pars.Kbd = p(3);
 pars.Kdb0 = p(4);
 pars.Kcd = p(5);
 pars.Kdc = p(6);
 pars.Kca0 = p(7);
-pars.Kac = p(8); % neq 
-% pars.Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)); % eq
+% pars.Kac = p(8); % neq 
+pars.Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)); % eq
+% pars.Kba = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2));
 
-% %% check if Kac is too big for eq
-% if pars.Kac > 1000
-%     maxLG = -1;
-%     maxT = -1;
-%     return 
-% end
+%% check if Kac is too big for eq
+if pars.Kac > 7000
+    maxLG = 0.01;
+    maxT = -1;
+    % pars
+    return
+end
 
 %%
 % y0 = [0;0;0;1;0;0;0;0];
