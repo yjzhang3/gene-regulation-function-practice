@@ -1,4 +1,6 @@
 function Pa = Pa_ss4(p,TF)
+% input: parameters and TF value
+% output: steady state solution for Pa
 
 Kab= p(1);
 Kba = p(2);

@@ -15,7 +15,7 @@ ub = zeros(1,8)+1E+3; % neq
 nvars = 8; % neq
 % nvars = 7; % eq
 
-fun = @(p) -1*local_sens_ss(p,TF);
+fun = @(p) -1*local_sens_ss_v2(p,TF);
 
 %% particle swarm once
 % x = particleswarm(fun,nvars,lb,ub)
