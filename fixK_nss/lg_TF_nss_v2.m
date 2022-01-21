@@ -32,13 +32,13 @@ plot(tspan,LG)
 % plot(tspan,LG,"LineWidth",3)
 xlabel('time')
 ylabel('log gain in TR wrt TF')
-% set(gca,'FontSize',15)
-% spec = sprintf('transient log gain at TF = %0.5f',TF);
-% title(spec)
+set(gca,'FontSize',15)
+spec = sprintf('transient log gain at TF = %0.5f',TF);
+title(spec)
 % spec1 = sprintf('non steady state max LG at TF = %0.5f is %0.5f',TF,maxLG);
 % yline(maxLG,'-',spec1,'LineWidth',3,'Color',[0.1 0.9 0.2])
-% spec2 = sprintf('quasi steady state LG at TF = %0.5f approaches %0.5f',TF,LG(end));
-% yline(LG(end),'-',spec2,'LineWidth',3,'Color',[0.1 0.9 0.2])
+spec2 = sprintf('quasi steady state LG at TF = %0.5f approaches %0.5f',TF,LG(end));
+yline(LG(end),'-',spec2,'LineWidth',3,'Color',[0.1 0.9 0.2])
 end
 
 

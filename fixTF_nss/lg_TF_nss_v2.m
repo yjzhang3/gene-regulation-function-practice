@@ -6,25 +6,15 @@ tspan = [0:0.1:t];
 
 pars.Kab= p(1);
 pars.Kba = p(2);
-% pars.Kac = p(2);
 pars.Kbd = p(3);
 pars.Kdb0 = p(4);
 pars.Kcd = p(5);
 pars.Kdc = p(6);
 pars.Kca0 = p(7);
-% pars.Kac = p(8); % neq 
-pars.Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)); % eq
-% pars.Kba = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2));
+pars.Kac = p(8); % neq 
+% pars.Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)); % eq
 
-%% check if Kac is too big for eq
-if pars.Kac > 7000
-    maxLG = 0.01;
-    maxT = -1;
-    % pars
-    return
-end
-
-%%
+%% calculate log gain
 % y0 = [0;0;0;1;0;0;0;0];
 y0 = [0;0;0;0;0;0;0;0];
 [y0(1),y0(2),y0(3),y0(4)] = ss_ic(pars.Kcd,pars.Kdc);
@@ -34,8 +24,18 @@ y0 = [0;0;0;0;0;0;0;0];
 % probaility of staying in state A, and derivative of state A wrt TF
 LG = TF./ypred(:,1).*ypred(:,5);
 
+% find the max among all time points
 [maxLG,i] = max(LG);
 maxT = tspan(i);
+
+% %% check if Kac is too big for eq
+% if pars.Kac > 100
+%     maxLG = (pars.Kac-100)^(-2);
+%     maxT = -1;
+% else 
+%     [maxLG,i] = max(LG);
+%     maxT = tspan(i);
+% end
 
 %% remember to comment this plotting part during optimization
 % figure();

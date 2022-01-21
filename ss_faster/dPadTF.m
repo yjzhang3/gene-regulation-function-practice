@@ -2,15 +2,15 @@ function derivative = dPadTF(p,x)
 % input: a specific TF value
 % output: derivative of TR at this particular TF
 
-Kab= p(1);
+Kab = p(1);
 Kba = p(2);
 Kbd = p(3);
 Kdb0 = p(4);
 Kcd = p(5);
 Kdc = p(6);
 Kca0 = p(7);
-% Kac = p(8); % neq
-Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)); % eq
+Kac = p(8); % neq
+% Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)); % eq
 
 
 derivative = ((-1).*Kab+(-1).*Kac).^(-1).*(Kab.^3.*Kac.*Kba.*Kca0.^2.*Kcd.^2.* ...

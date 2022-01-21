@@ -6,7 +6,7 @@ function [LG_arr,p_arr] = main_ss(TF_arr)
 LG_arr = zeros(length(TF_arr),1);
 
 % p_arr = zeros(length(TF_arr),8); % neq
-p_arr_ps = zeros(length(TF_arr),7); % eq
+p_arr = zeros(length(TF_arr),7); % eq
 % each row is the best set of k for a particular TF range and t range
 
 for ii = 1:length(TF_arr)
