@@ -11,7 +11,7 @@ lb = zeros(1,8)+1E-2; % eq
 % ub = zeros(1,9)+1E+3; % neq
 ub =  zeros(1,8)+1E+3; % eq
 
-fun = @(p) fit_model_nss_v4(p,t);
+fun = @(p) -1*lg_TF_nss_v4(p,t);
 
 % nvars = 9; % neq
 nvars = 8; % eq

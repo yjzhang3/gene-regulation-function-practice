@@ -11,7 +11,7 @@ lb = zeros(1,7)+1E-2; % eq
 % ub = zeros(1,8)+1E+3; % neq
 ub =  zeros(1,7)+1E+3; % eq
 
-fun = @(p) fit_model_nss_v2(p,t,TF);
+fun = @(p) -1*lg_TF_nss_v4(p,t,TF);
 
 % nvars = 8; % neq
 nvars = 7; % eq
@@ -29,7 +29,7 @@ pp = zeros(niter,7);
 parfor iteration = 1:niter
     xx = particleswarm(fun,nvars,lb,ub);
     pp(iteration,:) = xx;
-    [lg,maxT] = lg_TF_nss_v2(xx,t,TF);
+    [lg,maxT] = lg_TF_nss_v4(xx,t,TF);
     lgmax(iteration) = lg;
     Tmax(iteration) = maxT;
 end

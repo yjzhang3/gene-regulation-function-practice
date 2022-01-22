@@ -1,7 +1,7 @@
 %% find best log gain and parameters for non-steady state given particular TF
 % remember to comment out figure section
 tic
-TF_test = [1];
+TF_test = [0.01:0.01:1];
 T_test = 5; % the system approaches steady state definitely within 10 unit of time
 [LG_arr_ps,p_arr_ps,maxT_arr] = main_nss_v2(TF_test,T_test);
 toc
