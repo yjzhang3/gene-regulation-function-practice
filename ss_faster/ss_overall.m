@@ -1,5 +1,5 @@
 %% find best k for this set of TF in a steady state system
-TF_test = [0.5,1];
+TF_test = [1,100];
 
 [LG_arr,p_arr] = main_ss(TF_test);
 

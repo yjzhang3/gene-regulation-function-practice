@@ -4,7 +4,8 @@ function [LG_arr,p_arr,maxT_arr] = main_nss_v3(t_arr)
 
 LG_arr = zeros(length(t_arr),1);
 
-p_arr = zeros(length(t_arr),9); % neq
+% p_arr = zeros(length(t_arr),9); % neq
+p_arr = zeros(length(t_arr),8); % eq
 % each row is the best set of k and TF for this simulation range
 
 % what is the time that maximizes at this particular TF and k
