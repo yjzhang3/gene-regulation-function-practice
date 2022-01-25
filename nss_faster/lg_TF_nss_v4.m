@@ -15,6 +15,11 @@ end
 [maxLG,I] = max(LG_overall);
 maxT = tspan(I);
 
+%% plot
+plot(tspan,LG_overall)
+xlabel('time')
+ylabel('log gain in TR wrt TF')
+
 end
 
 

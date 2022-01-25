@@ -5,14 +5,14 @@
 
 % use the best parameters k found by another pipeline that fixed TF
 tic
-p = reshape(p_new,[length(p_new),8]);
+p = reshape(p_new,[length(p_new),7]);
 T_test = 5;
 [maxLG_arr,maxTF_arr,maxT_arr] = main_nss_v2_fixK(p,T_test);
 toc
 %% plot and verify max LG using best Ks
 % now cancel the comments
 for ii = 1:length(p(:,1))
-    lg_TF_nss_v2(p(ii,:),T_test,maxTF_arr(ii));
+    lg_TF_nss_v4_fixK(p(ii,:),T_test,maxTF_arr(ii));
     hold on
     % legend(sprintf("TF = %0.5f",maxTF_arr(ii)));
 end

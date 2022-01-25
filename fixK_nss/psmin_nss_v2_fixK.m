@@ -6,10 +6,12 @@ function [lg_max,T_max,TF_max] = psmin_nss_v2_fixK(p,t)
 niter = 20;
 
 rng default
-lb = 1E-2; % neq
-ub = 1E+3; % neq
-fun = @(TF) fit_model_nss_v2(p,t,TF);
-nvars = 1; % neq
+lb = 1E-2;
+ub = 1E+3; 
+
+% fun = @(TF) -1*lg_TF_v2(p,t,TF); % using old ODE solver
+fun = @(TF) -1*lg_TF_nss_v4_fixK(p,t,TF);
+nvars = 1; 
 
 % %% find TF_max that maximizes the log gain at this parameter set
 % TF_max = particleswarm(fun,nvars,lb,ub)
@@ -24,7 +26,7 @@ ttff = zeros(niter,1);
 parfor iteration = 1:niter
     xx = particleswarm(fun,nvars,lb,ub);
     ttff(iteration) = xx;
-    [lg,maxT] = lg_TF_nss_v2(p,t,xx);
+    [lg,maxT] = lg_TF_nss_v4_fixK(p,t,xx);
     lgmax(iteration) = lg;
     Tmax(iteration) = maxT;
 end

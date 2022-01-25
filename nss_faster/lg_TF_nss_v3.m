@@ -12,10 +12,10 @@ pars.Kdb0 = p(4);
 pars.Kcd = p(5);
 pars.Kdc = p(6);
 pars.Kca0 = p(7);
-% pars.Kac = p(8); % neq
-% TF = p(9);
-pars.Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)) % eq
-TF = p(8);
+pars.Kac = p(8); % neq
+TF = p(9);
+% pars.Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)) % eq
+% TF = p(8);
 
 % rcond_old = singularity_test(p,100)
 
