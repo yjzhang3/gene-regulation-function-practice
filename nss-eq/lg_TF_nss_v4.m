@@ -17,9 +17,9 @@ end
 maxT = tspan(I);
 
 %% plot
-plot(tspan,LG_overall,'LineWidth',4)
-xlabel('time')
-ylabel('log gain in TR wrt TF')
+% plot(tspan,LG_overall,'LineWidth',4)
+% xlabel('time')
+% ylabel('log gain in TR wrt TF')
 
 end
 
