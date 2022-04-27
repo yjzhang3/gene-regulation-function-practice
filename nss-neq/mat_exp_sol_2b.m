@@ -35,3 +35,5 @@ y0 = [1;0;0;0;0;0;0;0];
 %% matrix exponential solution
 y_t_exp = expm(t.*A)*y0;
 LG_exp = TF/y_t_exp(1)*y_t_exp(5);
+
+

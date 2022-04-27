@@ -1,18 +1,18 @@
-function [lg_max,x] = psmin_nss_v3(lbn,ubn,t)
+function [lg_max,x] = psmin_nss_v3_2b(lbn,ubn,t)
 % input: fixed  t for simulation
 % output: parameters and TF that maximizes LG
 
 %% parameters
-niter = 50;
+niter = 5;
 rng default
 
-lb = zeros(1,9)+lbn; % eq
+lb = zeros(1,9)+lbn; % neq
 
-ub =  zeros(1,9)+ubn; % eq
+ub =  zeros(1,9)+ubn; % neq
 
-fun = @(p) -1*lg_TF_nss_v4(p,t);
+fun = @(p) -1*lg_TF_nss_v4_2b(p,t);
 
-nvars = 9; % eq
+nvars = 9; % neq
 
 %%
 % x = particleswarm(fun,nvars,lb,ub)
@@ -25,12 +25,13 @@ pp = zeros(niter,9);
 parfor iteration = 1:niter
     xx = particleswarm(fun,nvars,lb,ub);
     pp(iteration,:) = xx;
-    lg = mat_exp_sol(xx);
+    lg = -1*fun(xx,t);
     lgmax(iteration) = lg;
+    create_parameter_file('nss_neq_2b_results.txt', xx, lg)
 end
 
-[lg_max,I] = max(lgmax)
-x = pp(I,:)
+[lg_max,I] = max(lgmax);
+x = pp(I,:);
 
 
 end

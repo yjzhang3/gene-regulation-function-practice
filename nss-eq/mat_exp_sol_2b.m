@@ -13,10 +13,15 @@ Kda = p(4);
 Kbc0 = p(5);
 Kcb = p(6);
 Kcd = p(7);
-Kdc0 = p(8); % neq
-TF = p(9); % neq
 
+TF = p(8); 
+Kdc0 = Kab0*TF*Kbc0*TF*Kcd*Kda/(Kad0*TF*Kcb*Kba*TF); 
 
+if Kdc0 < 0.001
+    LG_exp = nan;
+    y_t_exp = nan;
+    return
+end 
 
 %% set up the matrix
 

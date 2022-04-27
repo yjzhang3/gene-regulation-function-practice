@@ -13,10 +13,15 @@ Kdb0 = p(4);
 Kcd = p(5);
 Kdc = p(6);
 Kca0 = p(7);
-
-Kac = p(1)*p(3)*p(6)*p(7)/(p(5)*p(4)*p(2)); % eq
 TF = p(8); % eq
 
+Kac = p(1)*p(3)*p(6)*p(7)*p(8)/(p(5)*p(4)*p(8)*p(2)); % eq
+
+if Kac < 0.001
+    LG_exp = nan;
+    y_t_exp = nan;
+    return
+end 
 %% set up the matrix
 
 A = [[-Kab-Kac,Kba,Kca0*TF,0,0,0,0,0];

@@ -1,4 +1,4 @@
-function [maxLG,maxT,LG_overall] = lg_TF_nss_v4(p,t)
+function [maxLG,maxT,LG_overall] = lg_TF_nss_v4_1b(p,t)
 % TF is also a parameter to run 
 % same as lg_TF_nss_v4, but using matrix exponential to estimate solution
 % input: parameters and simulation time (upper bound)
@@ -7,9 +7,8 @@ function [maxLG,maxT,LG_overall] = lg_TF_nss_v4(p,t)
 
 tspan = [0:0.001:t];
 
-for tt = 1:length(tspan)
-    [LG,y] = mat_exp_sol(p,tspan(tt));
-%     [LG,y] = mat_exp_sol_2b(p,tspan(tt));
+parfor tt = 1:length(tspan)
+    [LG,~] = mat_exp_sol(p,tspan(tt));
     LG_overall(tt) = LG;
 end
 
